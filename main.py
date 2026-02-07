@@ -5,9 +5,9 @@ class Creature:
 
     def take_damage(self, amount):
         if self.health - amount < 0:
-            return True
+            pass
         else:
-            return False
+            self.health -= amount
         
     def is_alive(self):
         if self.health > 0:
@@ -23,11 +23,23 @@ class Monster(Creature):
         super().__init__(name, health)
         self.__attack_power = attack_power
 
+    def attack(self, target):
+        target.take_damage(self.__attack_power)
+
+    def get_attack_power(self):
+        return self.__attack_power
 
 
 
 
 blob = Creature("Bob the Blob", 100)
 vlad = Monster("Vlad", 150, 5)
+frank = Monster("Frank", 200, 10)
 
-print(f"DEBUG: Attack power = {vlad.get_attack_power()}")
+print(frank.health)
+
+print(vlad.health)
+frank.attack(vlad)
+print(vlad.health)
+
+print(vlad.get_attack_power())
