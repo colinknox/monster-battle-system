@@ -18,9 +18,16 @@ class Creature:
     def get_status(self):
         return f"{self.name}: {self.health} HP"
         
+class Monster(Creature):
+    def __init__(self, name, health, attack_power):
+        super().__init__(name, health)
+        self.__attack_power = attack_power
+
+
+
 
 
 blob = Creature("Bob the Blob", 100)
+vlad = Monster("Vlad", 150, 5)
 
-print(blob.health)
-print(blob.get_status())
+print(f"DEBUG: Attack power = {vlad.get_attack_power()}")
