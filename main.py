@@ -4,10 +4,10 @@ class Creature:
         self.health = health
 
     def take_damage(self, amount):
-        if self.health - amount < 0:
-            pass
-        else:
-            self.health -= amount
+        self.health -= amount
+        
+        if self.health < 0:
+            self.health = 0
         
     def is_alive(self):
         if self.health > 0:
@@ -43,11 +43,12 @@ class BossMonster(Monster):
             self.__enraged = True
             print(f"{self.name} becomes enraged!")
 
+    def attack(self, target):
+        if self.__enraged == True:
+            attack_power = self.get_attack_power()
+            target.take_damage(attack_power * 2)
+        else:
+            super().attack(target)
 
-
-the_boss = BossMonster("The Boss", 100, 10)
-
-print(the_boss.health)
-print(the_boss.take_damage(70))
-print(the_boss.health)
-# print(the_boss.original_health)
+    def is_enraged(self):
+        return self.__enraged
