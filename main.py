@@ -29,17 +29,25 @@ class Monster(Creature):
     def get_attack_power(self):
         return self.__attack_power
 
+class BossMonster(Monster):
+    def __init__(self, name, health, attack_power):
+        super().__init__(name, health, attack_power)
+        self.__enraged = False
+        self.original_health = self.health
+        self.becomes_enraged = self.original_health * 0.3
+
+    def take_damage(self, amount):
+        super().take_damage(amount)
+
+        if self.health < self.becomes_enraged and self.__enraged == False:
+            self.__enraged = True
+            print(f"{self.name} becomes enraged!")
 
 
 
-blob = Creature("Bob the Blob", 100)
-vlad = Monster("Vlad", 150, 5)
-frank = Monster("Frank", 200, 10)
+the_boss = BossMonster("The Boss", 100, 10)
 
-print(frank.health)
-
-print(vlad.health)
-frank.attack(vlad)
-print(vlad.health)
-
-print(vlad.get_attack_power())
+print(the_boss.health)
+print(the_boss.take_damage(70))
+print(the_boss.health)
+# print(the_boss.original_health)
